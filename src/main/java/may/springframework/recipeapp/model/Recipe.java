@@ -1,6 +1,7 @@
 package may.springframework.recipeapp.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,10 +13,12 @@ public class Recipe {
 
     private String description;
     private Integer prepTime;
-    private Integer coolTime;
+    private Integer cookTime;
     private Integer servings;
     private String source;
     private String url;
+
+    @Lob
     private String directions;
     //TODO: add
     //private Difficulty difficulty;
@@ -30,13 +33,13 @@ public class Recipe {
     private Notes notes;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "recipe_category",
         joinColumns = @JoinColumn(name = "recipe_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
 
     public Long getId() {
@@ -63,12 +66,12 @@ public class Recipe {
         this.prepTime = prepTime;
     }
 
-    public Integer getCoolTime() {
-        return coolTime;
+    public Integer getCookTime() {
+        return cookTime;
     }
 
-    public void setCoolTime(Integer coolTime) {
-        this.coolTime = coolTime;
+    public void setCookTime(Integer cookTime) {
+        this.cookTime = cookTime;
     }
 
     public Integer getServings() {

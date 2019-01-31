@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long>{
 
+    //Query method
     Optional<UnitOfMeasure> findByDescription(String description);
 }
