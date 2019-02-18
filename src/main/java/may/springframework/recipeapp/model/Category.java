@@ -1,12 +1,14 @@
 package may.springframework.recipeapp.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"recipes"})
 @Entity
 public class Category {
 
@@ -15,7 +17,7 @@ public class Category {
     private Long id;
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes = new HashSet<>();
 
     /*public void addRecipe(Recipe recipe) {
