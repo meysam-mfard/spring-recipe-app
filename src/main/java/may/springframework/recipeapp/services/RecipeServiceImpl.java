@@ -1,9 +1,13 @@
 package may.springframework.recipeapp.services;
 
 import lombok.extern.slf4j.Slf4j;
+import may.springframework.recipeapp.Converters.RecipeDtoToRecipe;
+import may.springframework.recipeapp.Converters.RecipeToRecipeDto;
+import may.springframework.recipeapp.DTO.RecipeDto;
 import may.springframework.recipeapp.Repositories.RecipeRepository;
 import may.springframework.recipeapp.model.Recipe;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -14,9 +18,14 @@ import java.util.Set;
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final RecipeDtoToRecipe recipeDtoToRecipe;
+    private final RecipeToRecipeDto recipeToRecipeDto;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
+    public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeDtoToRecipe recipeDtoToRecipe,
+                             RecipeToRecipeDto recipeToRecipeDto) {
         this.recipeRepository = recipeRepository;
+        this.recipeDtoToRecipe = recipeDtoToRecipe;
+        this.recipeToRecipeDto = recipeToRecipeDto;
     }
 
     @Override
@@ -41,5 +50,14 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
         return recipeOptional.get();
+    }
+
+    @Override
+    @Transactional
+    public RecipeDto saveRecipeDto(RecipeDto recipeDto) {
+        Recipe detachedRecipe = recipeDtoToRecipe.convert(recipeDto);
+        Recipe savedRecipe = recipeRepository.save(detachedRecipe);
+        log.debug("Saved RecipeId:" + savedRecipe.getId());
+        return recipeToRecipeDto.convert(savedRecipe);
     }
 }
