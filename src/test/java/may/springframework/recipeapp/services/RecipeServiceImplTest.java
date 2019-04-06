@@ -1,5 +1,7 @@
 package may.springframework.recipeapp.services;
 
+import may.springframework.recipeapp.Converters.RecipeDtoToRecipe;
+import may.springframework.recipeapp.Converters.RecipeToRecipeDto;
 import may.springframework.recipeapp.Repositories.RecipeRepository;
 import may.springframework.recipeapp.model.Recipe;
 import org.junit.Before;
@@ -21,6 +23,12 @@ public class RecipeServiceImplTest {
 
     @Mock
     RecipeRepository recipeRepository;
+
+    @Mock
+    RecipeToRecipeDto recipeToRecipeDto;
+
+    @Mock
+    RecipeDtoToRecipe recipeDtoToRecipe;
 
     @Before
     public void setUp() throws Exception {
