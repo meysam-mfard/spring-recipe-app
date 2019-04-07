@@ -13,4 +13,6 @@ public interface RecipeService {
     RecipeDto findRecipeDtoById(Long id);
 
     RecipeDto saveRecipeDto(RecipeDto recipeDto);
+
+    void deleteById(Long id);
 }
