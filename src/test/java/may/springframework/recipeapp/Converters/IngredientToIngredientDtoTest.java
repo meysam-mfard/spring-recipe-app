@@ -55,7 +55,7 @@ public class IngredientToIngredientDtoTest {
         assertEquals(ID, ingredientDto.getId());
         assertEquals(DESCRIPTION, ingredientDto.getDescription());
         assertEquals(AMOUNT, ingredientDto.getAmount());
-        assertEquals(UOM_ID, ingredientDto.getUnitOfMeasure().getId());
+        assertEquals(UOM_ID, ingredientDto.getUom().getId());
     }
 
     @Test
@@ -74,6 +74,6 @@ public class IngredientToIngredientDtoTest {
         assertEquals(ID, ingredientDto.getId());
         assertEquals(DESCRIPTION, ingredientDto.getDescription());
         assertEquals(AMOUNT, ingredientDto.getAmount());
-        assertNull(ingredientDto.getUnitOfMeasure());
+        assertNull(ingredientDto.getUom());
     }
 }
