@@ -1,6 +1,8 @@
 package may.springframework.recipeapp.controllers;
 
+import may.springframework.recipeapp.DTO.IngredientDto;
 import may.springframework.recipeapp.DTO.RecipeDto;
+import may.springframework.recipeapp.services.IngredientService;
 import may.springframework.recipeapp.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +21,9 @@ public class IngredientControllerTest {
     @Mock
     RecipeService recipeService;
 
+    @Mock
+    IngredientService ingredientService;
+
     IngredientController ingredientController;
 
     MockMvc mockMvc;
@@ -28,13 +33,13 @@ public class IngredientControllerTest {
 
         MockitoAnnotations.initMocks(this);
 
-        ingredientController = new IngredientController(recipeService);
+        ingredientController = new IngredientController(recipeService, ingredientService);
 
         mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
     }
 
     @Test
-    public void getIngredients() throws Exception {
+    public void testListIngredients() throws Exception {
 
         //given
         RecipeDto recipeDto = new RecipeDto();
@@ -48,5 +53,19 @@ public class IngredientControllerTest {
 
         //then
         verify(recipeService, times(1)).findRecipeDtoById(anyLong());
+    }
+
+    @Test
+    public void testShowIngredient() throws Exception {
+
+        IngredientDto ingredientDto = new IngredientDto();
+        when(ingredientService.findByRecipeIdAndIngredientId(anyLong(), anyLong())).thenReturn(ingredientDto);
+
+        mockMvc.perform(get("/recipe/1/ingredient/1/show"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/ingredient/show"))
+                .andExpect(model().attributeExists("ingredient"));
+
+        verify(ingredientService, times(1)).findByRecipeIdAndIngredientId(anyLong(), anyLong());
     }
 }
