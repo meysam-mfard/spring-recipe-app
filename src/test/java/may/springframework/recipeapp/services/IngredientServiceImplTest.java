@@ -1,9 +1,12 @@
 package may.springframework.recipeapp.services;
 
+import may.springframework.recipeapp.Converters.IngredientDtoToIngredient;
 import may.springframework.recipeapp.Converters.IngredientToIngredientDto;
+import may.springframework.recipeapp.Converters.UnitOfMeasureDtoToUnitOfMeasure;
 import may.springframework.recipeapp.Converters.UnitOfMeasureToUnitOfMeasureDto;
 import may.springframework.recipeapp.DTO.IngredientDto;
 import may.springframework.recipeapp.Repositories.RecipeRepository;
+import may.springframework.recipeapp.Repositories.UnitOfMeasureRepository;
 import may.springframework.recipeapp.model.Ingredient;
 import may.springframework.recipeapp.model.Recipe;
 import org.junit.Before;
@@ -24,10 +27,15 @@ public class IngredientServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    UnitOfMeasureRepository unitOfMeasureRepository;
+
     private final IngredientToIngredientDto ingredientToIngredientDto;
+    private final IngredientDtoToIngredient ingredientDtoToIngredient;
 
     public IngredientServiceImplTest() {
         ingredientToIngredientDto = new IngredientToIngredientDto(new UnitOfMeasureToUnitOfMeasureDto());
+        ingredientDtoToIngredient = new IngredientDtoToIngredient(new UnitOfMeasureDtoToUnitOfMeasure());
     }
 
     @Before

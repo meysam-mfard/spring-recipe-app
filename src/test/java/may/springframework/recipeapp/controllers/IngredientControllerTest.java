@@ -4,6 +4,7 @@ import may.springframework.recipeapp.DTO.IngredientDto;
 import may.springframework.recipeapp.DTO.RecipeDto;
 import may.springframework.recipeapp.services.IngredientService;
 import may.springframework.recipeapp.services.RecipeService;
+import may.springframework.recipeapp.services.UnitOfMeasureService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -23,6 +24,9 @@ public class IngredientControllerTest {
 
     @Mock
     IngredientService ingredientService;
+
+    @Mock
+    UnitOfMeasureService unitOfMeasureService;
 
     IngredientController ingredientController;
 
